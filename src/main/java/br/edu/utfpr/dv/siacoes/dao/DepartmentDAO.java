@@ -1,6 +1,6 @@
 package br.edu.utfpr.dv.siacoes.dao;
 
-import Department;
+
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -91,7 +91,7 @@ public class DepartmentDAO {
                 
                 try(ResultSet rs = stmt.getGeneratedKeys()){
                     if(rs.next()){
-                        department.setIdActivityUnit(rs.getInt(1));
+                        department.setIdDepartment(rs.getInt(1));
                     }
                 }
                 new UpdateEvent(conn).registerInsert(idUser, department);
