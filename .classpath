@@ -22,6 +22,7 @@
 	<classpathentry exported="true" kind="lib" path="src/main/webapp/WEB-INF/lib/jasperreports-functions-6.4.3.jar"/>
 	<classpathentry exported="true" kind="lib" path="src/main/webapp/WEB-INF/lib/jasperreports-javaflow-6.4.3.jar"/>
 	<classpathentry exported="true" kind="lib" path="src/main/webapp/WEB-INF/lib/signature.jar"/>
+	<classpathentry kind="lib" path="C:/Users/samue/eclipse/java-2020-06/eclipse/librarie/lombok.jar"/>
 	<classpathentry excluding="**" kind="src" output="target/classes" path="src/main/resources">
 		<attributes>
 			<attribute name="maven.pomderived" value="true"/>
@@ -29,10 +30,11 @@
 	</classpathentry>
 	<classpathentry kind="src" output="target/test-classes" path="src/test/java">
 		<attributes>
+			<attribute name="test" value="true"/>
 			<attribute name="optional" value="true"/>
 			<attribute name="maven.pomderived" value="true"/>
-			<attribute name="test" value="true"/>
 		</attributes>
 	</classpathentry>
+	<classpathentry kind="lib" path="C:/Users/samue/Documents/lombok.jar"/>
 	<classpathentry kind="output" path="target/classes"/>
 </classpath>
