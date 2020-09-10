@@ -37,12 +37,14 @@ public class ActivityUnitDAO {
                     stmt.setInt(1, id);
                     try (ResultSet rs = stmt.executeQuery()){
 
-                    if(rs.next()){
-                            return this.loadObject(rs);
-                    }else{
-                            return null;
+	                    if(rs.next()){
+	                            return this.loadObject(rs);
+	                    }else{
+	                            return null;
+	                    }
+                    
                     }
-		}
+		}              
 	}
              
         private int insert(int idUser, ActivityUnit unit) throws SQLException {
@@ -61,6 +63,7 @@ public class ActivityUnitDAO {
                 }
                 new UpdateEvent(conn).registerInsert(idUser, unit);
                 return unit.getIdActivityUnit();
+           }
         }
            
         private int update(int idUser, ActivityUnit unit) throws SQLException {
@@ -73,9 +76,10 @@ public class ActivityUnitDAO {
                 stmt.execute();
                 new UpdateEvent(conn).registerUpdate(idUser, unit);
                 return unit.getIdActivityUnit();
+           }
         }
                 
-	public int save(int idUser, ActivityUnit unit) {
+	public int save(int idUser, ActivityUnit unit) throws SQLException {
 		boolean insert = (unit.getIdActivityUnit() == 0);
 		if(insert){
                     return insert(idUser, unit);

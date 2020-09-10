@@ -8,21 +8,18 @@ import lombok.Setter;
 import lombok.ToString;
 
 @ToString(onlyExplicitlyIncluded = true)
-@NoArgsConstructor
+@Getter @Setter @NoArgsConstructor
 public class Campus implements Serializable {
 	
 	private static final long serialVersionUID = 1L;
 	
-	private @Getter @Setter int idCampus;
+	private int idCampus;
 	@ToString.Include
-	private @Getter @Setter String name;
-	private @Getter @Setter String address;
-	private @Getter @Setter transient byte[] logo;
-	private @Setter boolean active;
-	private @Getter @Setter String site;
-	private @Getter @Setter String initials;
+	private String name;
+	private String address;
+	private transient byte[] logo;
+	private boolean active;
+	private String site;
+	private String initials;
 	
-	public boolean isActive() {
-		return active;
-	}
 }

@@ -1,7 +1,5 @@
 package br.edu.utfpr.dv.siacoes.dao;
 
-import BugReport;
-import BugReport;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
