@@ -6,11 +6,11 @@ import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-import org.apache.catalina.tribes.util.Arrays;
 import org.apache.pdfbox.multipdf.PDFMergerUtility;
 
 import br.edu.utfpr.dv.siacoes.dao.ActivityGroupDAO;
@@ -19,6 +19,7 @@ import br.edu.utfpr.dv.siacoes.model.ActivityGroup;
 import br.edu.utfpr.dv.siacoes.model.ActivityGroupStatus;
 import br.edu.utfpr.dv.siacoes.model.ActivityScore;
 import br.edu.utfpr.dv.siacoes.model.ActivitySubmission;
+import br.edu.utfpr.dv.siacoes.model.ActivitySubmission.ActivityFeedback;
 import br.edu.utfpr.dv.siacoes.model.ActivitySubmissionDetailReport;
 import br.edu.utfpr.dv.siacoes.model.ActivitySubmissionFooterReport;
 import br.edu.utfpr.dv.siacoes.model.ActivitySubmissionReport;
@@ -28,10 +29,9 @@ import br.edu.utfpr.dv.siacoes.model.EmailMessageEntry;
 import br.edu.utfpr.dv.siacoes.model.SigacConfig;
 import br.edu.utfpr.dv.siacoes.model.StudentActivityStatusReport;
 import br.edu.utfpr.dv.siacoes.model.StudentActivityStatusReport.StudentStage;
-import br.edu.utfpr.dv.siacoes.model.User.UserProfile;
 import br.edu.utfpr.dv.siacoes.model.User;
+import br.edu.utfpr.dv.siacoes.model.User.UserProfile;
 import br.edu.utfpr.dv.siacoes.model.UserDepartment;
-import br.edu.utfpr.dv.siacoes.model.ActivitySubmission.ActivityFeedback;
 import br.edu.utfpr.dv.siacoes.util.ReportUtils;
 import br.edu.utfpr.dv.siacoes.util.StringUtils;
 

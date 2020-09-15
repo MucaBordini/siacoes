@@ -13,7 +13,7 @@ import java.util.List;
 import br.edu.utfpr.dv.siacoes.log.UpdateEvent;
 import br.edu.utfpr.dv.siacoes.model.Department;
 
-public class DepartmentDAO {
+public class DepartmentDAO extends TemplateDAO<Department> {
 
 	public Department findById(int id) throws SQLException{
 		
@@ -131,7 +131,7 @@ public class DepartmentDAO {
                 }
         }
 	
-	private Department loadObject(ResultSet rs) throws SQLException{
+	Department loadObject(ResultSet rs) throws SQLException{
 		Department department = new Department();
 		
 		department.setIdDepartment(rs.getInt("idDepartment"));

@@ -14,7 +14,7 @@ import br.edu.utfpr.dv.siacoes.model.BugReport.BugStatus;
 import br.edu.utfpr.dv.siacoes.model.Module;
 import br.edu.utfpr.dv.siacoes.model.User;
 
-public class BugReportDAO {
+public class BugReportDAO extends TemplateDAO<BugReport> {
 	
 	public BugReport findById(int id) throws SQLException{
                 
@@ -53,33 +53,34 @@ public class BugReportDAO {
 			
 		}
 	}
-        public int insert(BugReport bug) throws SQLException{
-            try (Connection conn = ConnectionDAO.getInstance().getConnection();
-                 PreparedStatement stmt = conn.prepareStatement("INSERT INTO bugreport(idUser, module, title, description, reportDate, type, status, statusDate, statusDescription) VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?)", Statement.RETURN_GENERATED_KEYS))
+	
+    public int insert(BugReport bug) throws SQLException{
+        try (Connection conn = ConnectionDAO.getInstance().getConnection();
+             PreparedStatement stmt = conn.prepareStatement("INSERT INTO bugreport(idUser, module, title, description, reportDate, type, status, statusDate, statusDescription) VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?)", Statement.RETURN_GENERATED_KEYS))
+        {
+            stmt.setInt(1, bug.getUser().getIdUser());
+            stmt.setInt(2, bug.getModule().getValue());
+            stmt.setString(3, bug.getTitle());
+            stmt.setString(4, bug.getDescription());
+            stmt.setDate(5, new java.sql.Date(bug.getReportDate().getTime()));
+            stmt.setInt(6, bug.getType().getValue());
+            stmt.setInt(7, bug.getStatus().getValue());
+            if(bug.getStatus() == BugStatus.REPORTED){
+                    stmt.setNull(8, Types.DATE);
+            }else{
+                    stmt.setDate(8, new java.sql.Date(bug.getStatusDate().getTime()));
+            }
+            stmt.setString(9, bug.getStatusDescription());
+            stmt.execute();
+            try (ResultSet rs = stmt.getGeneratedKeys())
             {
-                stmt.setInt(1, bug.getUser().getIdUser());
-                stmt.setInt(2, bug.getModule().getValue());
-                stmt.setString(3, bug.getTitle());
-                stmt.setString(4, bug.getDescription());
-                stmt.setDate(5, new java.sql.Date(bug.getReportDate().getTime()));
-                stmt.setInt(6, bug.getType().getValue());
-                stmt.setInt(7, bug.getStatus().getValue());
-                if(bug.getStatus() == BugStatus.REPORTED){
-                        stmt.setNull(8, Types.DATE);
-                }else{
-                        stmt.setDate(8, new java.sql.Date(bug.getStatusDate().getTime()));
+                if(rs.next()){
+                    bug.setIdBugReport(rs.getInt(1));
                 }
-                stmt.setString(9, bug.getStatusDescription());
-                stmt.execute();
-                try (ResultSet rs = stmt.getGeneratedKeys())
-                {
-                    if(rs.next()){
-                        bug.setIdBugReport(rs.getInt(1));
-                    }
-                    return bug.getIdBugReport();
-                }
+                return bug.getIdBugReport();
             }
         }
+    }
         
         public int update(BugReport bug) throws SQLException {
             try (Connection conn = ConnectionDAO.getInstance().getConnection();
@@ -115,7 +116,8 @@ public class BugReportDAO {
 		
 	}
 	
-	private BugReport loadObject(ResultSet rs) throws SQLException{
+	
+	BugReport loadObject(ResultSet rs) throws SQLException{
 		BugReport bug = new BugReport();
 		
 		bug.setIdBugReport(rs.getInt("idBugReport"));

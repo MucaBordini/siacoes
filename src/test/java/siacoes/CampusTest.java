@@ -21,7 +21,7 @@ class CampusTest {
 		String resultadoEsperado = "www.testandocampus.com";
 		String resultadoObtido = campus.getSite();
 		
-		assertEquals(resultadoEsperado, resultadoObtido, "PASSOU!");
+		assertEquals(resultadoEsperado, resultadoObtido);
 	}
 
 }

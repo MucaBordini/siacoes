@@ -11,7 +11,7 @@ import java.util.List;
 import br.edu.utfpr.dv.siacoes.log.UpdateEvent;
 import br.edu.utfpr.dv.siacoes.model.ActivityUnit;
 
-public class ActivityUnitDAO {
+public class ActivityUnitDAO extends TemplateDAO<ActivityUnit>{
 	
 	public List<ActivityUnit> listAll() throws SQLException{
 		
@@ -46,25 +46,25 @@ public class ActivityUnitDAO {
                     }
 		}              
 	}
-             
-        private int insert(int idUser, ActivityUnit unit) throws SQLException {
-           try (Connection conn = ConnectionDAO.getInstance().getConnection();
-                PreparedStatement stmt = conn.prepareStatement("INSERT INTO activityunit(description, fillAmount, amountDescription) VALUES(?, ?, ?)", Statement.RETURN_GENERATED_KEYS)){
-               
-                stmt.setString(1, unit.getDescription());
-                stmt.setInt(2, (unit.isFillAmount() ? 1 : 0));
-                stmt.setString(3, unit.getAmountDescription());
-                stmt.execute();
-                
-                try(ResultSet rs = stmt.getGeneratedKeys()){
-                    if(rs.next()){
-                        unit.setIdActivityUnit(rs.getInt(1));
-                    }
+	
+	private int insert(int idUser, ActivityUnit unit) throws SQLException {
+       try (Connection conn = ConnectionDAO.getInstance().getConnection();
+            PreparedStatement stmt = conn.prepareStatement("INSERT INTO activityunit(description, fillAmount, amountDescription) VALUES(?, ?, ?)", Statement.RETURN_GENERATED_KEYS)){
+           
+            stmt.setString(1, unit.getDescription());
+            stmt.setInt(2, (unit.isFillAmount() ? 1 : 0));
+            stmt.setString(3, unit.getAmountDescription());
+            stmt.execute();
+            
+            try(ResultSet rs = stmt.getGeneratedKeys()){
+                if(rs.next()){
+                    unit.setIdActivityUnit(rs.getInt(1));
                 }
-                new UpdateEvent(conn).registerInsert(idUser, unit);
-                return unit.getIdActivityUnit();
-           }
-        }
+            }
+            new UpdateEvent(conn).registerInsert(idUser, unit);
+            return unit.getIdActivityUnit();
+       }
+    }
            
         private int update(int idUser, ActivityUnit unit) throws SQLException {
            try (Connection conn = ConnectionDAO.getInstance().getConnection();
@@ -88,7 +88,7 @@ public class ActivityUnitDAO {
                 }
 	}
 	
-	private ActivityUnit loadObject(ResultSet rs) throws SQLException{
+	ActivityUnit loadObject(ResultSet rs) throws SQLException{
 		ActivityUnit unit = new ActivityUnit();
 		
 		unit.setIdActivityUnit(rs.getInt("idActivityUnit"));
