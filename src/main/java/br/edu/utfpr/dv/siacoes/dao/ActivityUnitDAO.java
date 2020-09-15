@@ -13,6 +13,12 @@ import br.edu.utfpr.dv.siacoes.model.ActivityUnit;
 
 public class ActivityUnitDAO extends TemplateDAO<ActivityUnit>{
 	
+	public String SqlQuery() {
+		
+		return ("SELECT * FROM activityunit WHERE idActivityUnit=?");
+			
+	}
+	
 	public List<ActivityUnit> listAll() throws SQLException{
 		
 		try (Connection conn = ConnectionDAO.getInstance().getConnection();
@@ -29,23 +35,11 @@ public class ActivityUnitDAO extends TemplateDAO<ActivityUnit>{
 		}
 	}
 	
-	public ActivityUnit findById(int id) throws SQLException{
+	/*public ActivityUnit findById(int id) throws SQLException{
 		
-		try (Connection conn = ConnectionDAO.getInstance().getConnection();
-                     PreparedStatement stmt = conn.prepareStatement("SELECT * FROM activityunit WHERE idActivityUnit=?")){
-			
-                    stmt.setInt(1, id);
-                    try (ResultSet rs = stmt.executeQuery()){
-
-	                    if(rs.next()){
-	                            return this.loadObject(rs);
-	                    }else{
-	                            return null;
-	                    }
-                    
-                    }
-		}              
-	}
+		              
+	}*/
+	
 	
 	private int insert(int idUser, ActivityUnit unit) throws SQLException {
        try (Connection conn = ConnectionDAO.getInstance().getConnection();
